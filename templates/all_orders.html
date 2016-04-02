@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>My Inventory</h2>
+
+    <div id="melon-list" class="row">
+      {% for order in orders %}
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 melon-summary">
+
+              <div class="well">
+                  <h3><a href="/order/{{ order['id'] }}">{{ order['name'] }}</a></h3>
+                  <p>Unit Price: {{ order['price'] }}</p>
+                  
+
+              </div>
+
+          </div>
+      {% endfor %}
+    </div>
+
+{% endblock %}
