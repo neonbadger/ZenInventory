@@ -1,21 +1,27 @@
 import os
+import requests
 
 def save_created_state(state):
+    """Note to self: store valid states in a database or memcache,
+    or cryptographically sign them and verify upon retrieval."""
+    
     pass
 
 def is_valid_state(state):
+    """Check if state is valid"""
+
     return True
 
 def make_authorization_url():
     """Serve a webpage on localhost that creates an authorization link
-    out to clover.com"""
+    out to Clover.com"""
 
     # Generate a random string for the state parameter
     # Save it for use later to prevent xsrf attacks
 
     from uuid import uuid4   
     state = str(uuid4())
-    # save_created_state(state)
+    save_created_state(state)
     
     params = {"client_id": os.environ['APP_ID'],
               "response_type": "code",
@@ -30,6 +36,7 @@ def make_authorization_url():
     return url
 
 def get_token(code):
+    """Clover's OAuth 2.0 handshake to exchange code for access token"""
 
     params = {
         'client_id': os.environ['APP_ID'],
@@ -46,4 +53,3 @@ def get_token(code):
     access_token = token_json['access_token']
 
     return access_token
-

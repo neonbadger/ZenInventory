@@ -1,4 +1,7 @@
-"""Python API wrapper."""
+"""Clover Python API wrapper.
+
+Modified from Chenyang Yuan: https://bitbucket.org/yuanchenyang/clover-example-server
+"""
 
 import requests
 import urllib
@@ -163,19 +166,3 @@ class CloverAPI(object):
         # Clover always returns JSON object in response
 
         return json.loads(response.content, object_hook=CloverResponseObject)
-
-
-# # Example! Increases the price of all items in the inventory by 1 cent
-# if __name__ == '__main__':
-#     # TODO: remove during production
-#     CloverAPI.base_url = "https://www.clover.com"
-
-#     # Create CloverAPI instance with Merchant ID and Access Token
-#     c = CloverAPI("9a996285-f9d5-9b8c-f9ad-d6ef752dfb1a", "32VSMVNFJ4ERP")
-
-#     # Get all items from merchant's inventory
-#     response = c.get("/v2/merchant/{mId}/inventory/items")
-
-#     for item in response.items:
-#         c.post("/v2/merchant/{mId}/inventory/items/{itemId}/price",
-#                {"price": item.price + 1}, itemId=item.id)
