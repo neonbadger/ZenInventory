@@ -3,7 +3,7 @@
 ####ABOUT
 ![](/static/img/cover.png)
 
-ZenInventory is a simple Flask web app that allows a merchant to view inventory via the Clover API.
+**ZenInventory** is a simple Flask web app that allows a merchant to view inventory via the Clover API.
 
 The goal is to explore Clover's OAUTH 2.0 and API endpoints. 
 
@@ -24,9 +24,14 @@ Create a virtual environment for the project.
 ```
 $ virtualenv env
 ```
+Install dependencies.
+```
+$ pip install -r requirements.txt
+```
+
 Apply for a developer account from [Clover](https://www.clover.com/developers/).
 
-Store the APP_ID, APP_SECRET, REDIRECT_URI, and MERCHANT_ID in a shell script and source it.
+Store the APP_ID, APP_SECRET, REDIRECT_URI, and MERCHANT_ID in a shell script (i.e. secrets.sh)and source it.
 
 ```
 $ source secrets.sh
@@ -37,7 +42,7 @@ $ python main.py
 ```
 ####TO-DO
 
-- [ ] Dynamic Routing for Individual Inventory Item
+- [ ] Dynamic routing for individual inventory item
 - [ ] Update inventory from the app
-- [ ] Visualize the item stocks
+- [ ] Visualize item stocks
 - [ ] Testing
