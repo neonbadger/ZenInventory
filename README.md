@@ -31,7 +31,7 @@ $ pip install -r requirements.txt
 
 Apply for a developer account from [Clover](https://www.clover.com/developers/).
 
-Store the APP_ID, APP_SECRET, REDIRECT_URI, and MERCHANT_ID in a shell script (i.e. secrets.sh) and source it.
+Store the APP_ID, APP_SECRET, REDIRECT_URI, and MERCHANT_ID in a shell script (i.e. secrets.sh). Then source it.
 
 ```
 $ source secrets.sh
