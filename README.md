@@ -14,7 +14,7 @@ To install ZenInventory on your local machine:
 Clone this repo.
 
 ```
-$ git clone https://github.com/neonbadger/DestinationUnknown.git
+$ git clone https://github.com/neonbadger/ZenInventory.git
 ```
 
 Create a virtual environment for the project.
