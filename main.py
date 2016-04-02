@@ -1,16 +1,12 @@
-# curl -s https://api.clover.com/v3/merchants/W96Q5MJDPAN4P/orders --header "Authorization:Bearer 86a5af7b-14e9-16e9-582d-92e4dc8a8b68" | python -mjson.tool
+"""
+ZenInventory: A Web App that Helps Merchants View their Inventory
+"""
 
-from flask import Flask
-from flask import abort, request
-from flask import redirect
-from flask import render_template
-from flask import flash
-
+from flask import Flask, abort, request, redirect, render_template, flash
 import os
-
+import clover_api
 from urlparse import urlparse
 
-import clover_api
 # import json
 # import jsonify
 
@@ -25,11 +21,11 @@ app.requests_session = requests.Session()
 app.secret_key = os.urandom(24)
 
 
-APP_ID = "PPY2CD6SA86FY"
-APP_SECRET = "4065d73d-ef74-937b-6ac5-d9982540348f"
-MERCHANT_ID = "W96Q5MJDPAN4P"
-REDIRECT_URI = "http://localhost:5000/clover_callback"
-BASE_URL = "https://www.clover.com"
+# APP_ID = "PPY2CD6SA86FY"
+# APP_SECRET = "4065d73d-ef74-937b-6ac5-d9982540348f"
+# MERCHANT_ID = "W96Q5MJDPAN4P"
+# REDIRECT_URI = "http://localhost:5000/clover_callback"
+# BASE_URL = "https://www.clover.com"
 
 
 @app.route('/')
@@ -55,16 +51,16 @@ def make_authorization_url():
     state = str(uuid4())
     # save_created_state(state)
     
-    params = {"client_id": APP_ID,
+    params = {"client_id": os.environ['APP_ID'],
               "response_type": "code",
               "state": state,
-              "redirect_uri": REDIRECT_URI,
+              "redirect_uri": os.environ['REDIRECT_URI'],
               "duration": "temporary",
               "scope": "identity"}
 
     import urllib
 
-    url = "https://www.clover.com/oauth/authorize?client_id" + APP_ID + urllib.urlencode(params)
+    url = "https://www.clover.com/oauth/authorize?client_id" + os.environ['APP_ID'] + urllib.urlencode(params)
     return url
 
 def save_created_state(state):
@@ -76,7 +72,7 @@ def is_valid_state(state):
 def get_token(code):
 
     parameters = {
-        'redirect_uri': REDIRECT_URI,
+        'redirect_uri': os.environ['REDIRECT_URI'],
         'code': code,
         'grant_type': 'authorization_code',
     }
@@ -84,8 +80,8 @@ def get_token(code):
     response = requests.post(
         "https://www.clover.com/oauth/token",
         auth = {
-            APP_ID,
-            APP_SECRET
+            os.environ['APP_ID'],
+            os.environ['APP_SECRET']
         },
         data = parameters
     )
@@ -132,8 +128,8 @@ def clover_callback():
     # }
 
     params = {
-        'client_id': APP_ID,
-        'client_secret': APP_SECRET,
+        'client_id': os.environ['APP_ID'],
+        'client_secret': os.environ['APP_SECRET'],
         'code': code
     }
 
@@ -146,8 +142,8 @@ def clover_callback():
         # },
         # data = post_data
         data = {
-            'client_id': APP_ID,
-            'client_secret': APP_SECRET,
+            'client_id': os.environ['APP_ID'],
+            'client_secret': os.environ['APP_SECRET'],
             'code': code
         }
     )
@@ -171,9 +167,9 @@ def show_token():
 @app.route('/orders')
 def orders():
 
-    c = clover_api.CloverAPI(session['access_token'], MERCHANT_ID)
+    c = clover_api.CloverAPI(session['access_token'], os.environ['MERCHANT_ID'])
 
-    response = c.get("/v3/merchants/{}/items".format(MERCHANT_ID))
+    response = c.get("/v3/merchants/{}/items".format(os.environ['MERCHANT_ID']))
 
     orders = response['elements']
 
