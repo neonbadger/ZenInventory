@@ -1,10 +1,11 @@
-#####ZenInventory: For Your Business's Peace of Mind#####
+# ZenInventory: For Your Business's Peace of Mind #
 
 ####ABOUT
+![](/static/img/cover.png)
 
 ZenInventory is a simple Flask web app that allows a merchant to view inventory via the Clover API.
 
-The goal is to explore Clover's OAUTH 2.0 and endpoints. 
+The goal is to explore Clover's OAUTH 2.0 and endpoints. Suggestions are welcome.
 
 ####INSTALLATION
 
