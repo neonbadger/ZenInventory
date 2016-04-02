@@ -1,4 +1,4 @@
-**ZenInventory: For Your Business's Peace of Mind**
+#####ZenInventory: For Your Business's Peace of Mind#####
 
 ####ABOUT
 
